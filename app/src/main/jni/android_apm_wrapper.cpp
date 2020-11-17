@@ -40,10 +40,10 @@ static void *get_ctx(JNIEnv *env, jobject thiz) {
 webrtc::Resampler* resample;
 
 class ApmWrapper{
-    const int sample_rate_hz = AudioProcessing::kSampleRate16kHz;
+    const int sample_rate_hz = AudioProcessing::kSampleRate48kHz;
     const int num_input_channels = 1;
 
-    const int reverse_sample_rate_hz = AudioProcessing::kSampleRate16kHz;
+    const int reverse_sample_rate_hz = AudioProcessing::kSampleRate48kHz;
     const int num_reverse_channels = 1;
 
 public:

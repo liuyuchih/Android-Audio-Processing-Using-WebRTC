@@ -54,7 +54,7 @@ public class AudioProcessing {
     private String keyTargetIP = "targetIP";
     private String keyTargetPort = "targetPort";
 
-    private static final int SAMPLE_RATE = 16000;
+    private static final int SAMPLE_RATE = 48000;
     private static final int BITS_PER_SAMPLE = 16;
 
     private static final int AEC_BUFFER_SIZE_MS = 10;
@@ -298,7 +298,7 @@ public class AudioProcessing {
         // Guaranteed to be supported by all devices.
         private static final int BITS_PER_SAMPLE = 16;
 
-        private static final int SAMPLE_RATE = 16000;
+        private static final int SAMPLE_RATE = 48000;
 
         // Requested size of each recorded buffer provided to the client.
 
@@ -390,6 +390,7 @@ public class AudioProcessing {
                 while (!_done) {
 
                     int bytesRead = _audioRecord.read(processBuffer, 0, processBuffer.length);
+//                    Log.d("record", "bytesRead: " + bytesRead);
                     if (bytesRead == processBuffer.length) {
                         for (int i = 0; i < AEC_LOOP_COUNT; ++i) {
                             int processBufferOffSet = i * processBuffer.length / AEC_LOOP_COUNT;
@@ -558,7 +559,7 @@ public class AudioProcessing {
         public void run() {
             super.run();
 
-            soundtouch.setSampleRate(16000);
+            soundtouch.setSampleRate(48000);
             soundtouch.setChannels(1);
 
             Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
