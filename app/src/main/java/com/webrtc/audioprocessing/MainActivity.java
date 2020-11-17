@@ -1,5 +1,6 @@
 package com.webrtc.audioprocessing;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +12,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.apmtest.R;
+
+import static android.Manifest.permission.RECORD_AUDIO;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, Counters {
     private EditText etTargetPort;
@@ -90,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         AecBufferDelayView();
 
-
+        if (ContextCompat.checkSelfPermission(this, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            String[] array = { RECORD_AUDIO };
+            ActivityCompat.requestPermissions(this, array, 1234);
+        }
     }
 
     private void registerClicks() {
