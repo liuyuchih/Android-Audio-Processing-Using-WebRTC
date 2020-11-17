@@ -361,12 +361,12 @@ public class AudioProcessing {
                         AudioFormat.ENCODING_PCM_16BIT,
                         bufferSizeInBytes);
 
-                if (AutomaticGainControl.isAvailable()) {
-                    AutomaticGainControl agc = AutomaticGainControl.create(
-                            _audioRecord.getAudioSessionId()
-                    );
-                    agc.setEnabled(false);
-                }
+//                if (AutomaticGainControl.isAvailable()) {
+//                    AutomaticGainControl agc = AutomaticGainControl.create(
+//                            _audioRecord.getAudioSessionId()
+//                    );
+//                    agc.setEnabled(false);
+//                }
 
 /*
                 Context context = getApplicationContext();
@@ -527,7 +527,7 @@ public class AudioProcessing {
             private long _high = 0;
         }
 
-        private JNISoundTouch soundtouch = new JNISoundTouch();
+//        private JNISoundTouch soundtouch = new JNISoundTouch();
 
         private boolean _done = false;
 
@@ -559,8 +559,8 @@ public class AudioProcessing {
         public void run() {
             super.run();
 
-            soundtouch.setSampleRate(48000);
-            soundtouch.setChannels(1);
+//            soundtouch.setSampleRate(48000);
+//            soundtouch.setChannels(1);
 
             Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
 
@@ -607,28 +607,28 @@ public class AudioProcessing {
                             }
                         }
 
-                        int size = _receveQueue.UsedSize();
-                        if (size >= 5 /*|| (writtenSamples - playedSamples.getPlayedSamples() >= 800)*/) {
-//                            Log.d("soundtouch", "process " + size);
-                            soundtouch.setTempoChange(20);
-                            soundtouch.putSamples(buffer, buffer.length);
-
-                            short[] data;
-                            do {
-
-                                data = soundtouch.receiveSamples();
-                                if (data.length <= 0) break;
-
-//                                Log.i("track", writtenSamples - playedSamples.getPlayedSamples() + "");
-                                playedSamples.setPlayedSamples(_audioTrack.getPlaybackHeadPosition());
-                                int samplesWritten = _audioTrack.write(data, 0, data.length);
-                                if (samplesWritten != data.length) {
-                                    _done = true;
-                                }
-                                writtenSamples += samplesWritten;
-
-                            } while (true);
-                        } else {
+//                        int size = _receveQueue.UsedSize();
+//                        if (size >= 5 /*|| (writtenSamples - playedSamples.getPlayedSamples() >= 800)*/) {
+////                            Log.d("soundtouch", "process " + size);
+//                            soundtouch.setTempoChange(20);
+//                            soundtouch.putSamples(buffer, buffer.length);
+//
+//                            short[] data;
+//                            do {
+//
+//                                data = soundtouch.receiveSamples();
+//                                if (data.length <= 0) break;
+//
+////                                Log.i("track", writtenSamples - playedSamples.getPlayedSamples() + "");
+//                                playedSamples.setPlayedSamples(_audioTrack.getPlaybackHeadPosition());
+//                                int samplesWritten = _audioTrack.write(data, 0, data.length);
+//                                if (samplesWritten != data.length) {
+//                                    _done = true;
+//                                }
+//                                writtenSamples += samplesWritten;
+//
+//                            } while (true);
+//                        } else {
 //                            Log.i("track", writtenSamples - playedSamples.getPlayedSamples() + "");
                             playedSamples.setPlayedSamples(_audioTrack.getPlaybackHeadPosition());
                             int samplesWritten = _audioTrack.write(buffer, 0, buffer.length);
@@ -636,7 +636,7 @@ public class AudioProcessing {
                                 _done = true;
                             }
                             writtenSamples += samplesWritten;
-                        }
+//                        }
                         _receveQueue.Consumer_Put(buffer);
                     }
                 }
