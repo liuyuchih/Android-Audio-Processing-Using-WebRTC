@@ -1,7 +1,9 @@
 package com.webrtc.audioprocessing;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -85,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-        etTargetIP.setText(apmViewModel.getTargetIP());
+        String targetIP = PreferenceManager.getDefaultSharedPreferences(this).getString("IP", "0.0.0.0");
+        etTargetIP.setText(targetIP);
         etTargetPort.setText(apmViewModel.getTargetPort());
         etAgcTargetLevel.setText(apmViewModel.getAgcTargetLevel());
         etAgcCompressionGain.setText(apmViewModel.getAgcCompressionGain());
@@ -348,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     rbAdaptiveAnalog.setEnabled(false);
                     rbAdaptiveDigital.setEnabled(false);
                     rbFixedDigital.setEnabled(false);
+                    PreferenceManager.getDefaultSharedPreferences(this).edit().putString("IP", etTargetIP.getText().toString()).apply();
                     apmViewModel.setTargetIP(etTargetIP.getText().toString());
                     apmViewModel.setTargetPort(etTargetPort.getText().toString());
                     apmViewModel.setAgcTargetLevel(etAgcTargetLevel.getText().toString());
